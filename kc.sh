@@ -3,12 +3,12 @@ set -e
 script=${0##*/}
 transaction=${script#kc}
 bank="$HOME/.kc"
-file=${bank}/`date '+%Y-%m-%d'`
+file=${bank}/$(date '+%Y-%m-%d')
 
 [ ! -d "$bank" ] && mkdir "$bank"
 touch "$file"
 
-if [ -z "$1" -o "$1" = "-h" -o "$1" = "--help" ] # Help! Help! Help!
+if [ "$1" = "-h" -o "$1" = "--help" ] # Help! Help! Help!
 then
   cat <<DOCUMENTATION
 Usage: kc [file ...]
@@ -18,7 +18,7 @@ DOCUMENTATION
   exit 0
 fi
 
-cat $1 |
+cat $(ls $bank/*) |
 awk '
   BEGIN {
     count[""] = 0;
