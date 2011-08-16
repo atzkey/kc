@@ -1,16 +1,30 @@
-# account direction amount currency subject
-# cash    +         100    USD      salary
-# cash    -         5      USD      food
-# cash    -         6      USD      food
-# cash    -         7      USD      food
-# cash    -         15     USD      fuel
-# cash    -         10     USD      exchange
-# cash    +         500    BRB      exchange
-# cash    -         500    BRB      food
 
-# kc calculates number of transactions and remainder by currency, by currency and account, by currency and subject
+:<<KACHING
+account direction amount currency subject
+------------------------------------------
+cash    +         100    USD      salary
+cash    -         5      USD      food
+cash    -         6      USD      food
+cash    -         7      USD      food
+cash    -         15     USD      fuel
+cash    -         10     USD      exchange
+cash    +         500    BRB      exchange
+cash    -         500    BRB      food
 
-cat test.txt |
+kc calculates number of transactions and remainder by currency, by currency and account, by currency and subject
+KACHING
+
+program=`basename $0`
+
+if [ -z "$1" -o ! -r "$1" -o "$1" = "-h" -o "$1" = "--help" ] # Help! Help! Help!
+then
+  cat <<DOCUMENTATION
+Usage: $program <ka-ching file>
+DOCUMENTATION
+  exit 0
+fi
+
+cat $1 |
 awk '
   BEGIN {
     count[""] = 0;
@@ -48,7 +62,7 @@ awk '
     # By pressing down a special key, it plays a little melody
     for (i in count) {
       if (i != "") {
-        print count[i], balance[i], i;
+        printf("%5d %10d  %s\n", count[i], balance[i], i)
       }
     }
   }
