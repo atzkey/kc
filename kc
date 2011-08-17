@@ -19,18 +19,33 @@ DOCUMENTATION
   exit 0
 fi
 
+case $transaction in
+  "+"|"-")
+    echo $transaction $@ >> $ledger/$journal
+    exit # +/-
+  ;;
+  "")
+    # kc!
+  ;;
+  *)
+    echo "Hmm..."
+  ;;
+esac
+
+# exit 0
+
 cat $ledger/${1}* |
 awk '
   BEGIN {
     count[""] = 0;
     balance[""] = 0;
   }
-  NF == 5 {
-    account = $1;
-    direction = $2;
+  NF >= 5 {
+    direction = $1;
+    account = $2;
     amount = $3;
     currency = $4;
-    subject = $5;
+    subject = substr($0,length($1 $2 $3 $4) + 5);
     
     # I"m the operator with my pocket calculator
     count["* " currency " balance"]++;
