@@ -3,23 +3,23 @@ set -e
 
 script=${0##*/}
 transaction=${script#kc}
-bank="$HOME/.kc"
-file=${bank}/$(date '+%Y-%m-%d')
+ledger="$HOME/.kc"
+journal=${JOURNAL:-$(date '+%Y-%m')}
 
-[ ! -d "$bank" ] && mkdir "$bank"
-touch "$file"
+[ ! -d "$ledger" ] && mkdir "$ledger"
+touch "$ledger/$journal"
 
 if [ "$1" = "-h" -o "$1" = "--help" ] # Help! Help! Help!
 then
   cat <<DOCUMENTATION
-Usage: kc [file ...]
+Usage: kc [pattern]
        kc+ <account> <amount> <currency> <category>
        kc- <account> <amount> <currency> <category>
 DOCUMENTATION
   exit 0
 fi
 
-cat $(ls $bank/*) |
+cat $ledger/${1}* |
 awk '
   BEGIN {
     count[""] = 0;
