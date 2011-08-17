@@ -12,6 +12,7 @@
 ##   -m mandir
 ##     Use +mandir+ to store man files (default: /usr/local/share/man)
 ##
+## Now you're ready to configure kc, please run ./configure again without -h
 
 dbg() { [ ! -z "$DEBUG" ] && echo "$@" 1>&2; }
 
