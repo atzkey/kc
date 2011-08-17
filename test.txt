@@ -1,9 +1,0 @@
-# account direction amount currency subject < this line will be ignored
-cash      +         100    USD      salary
-cash      -         5      USD      food
-cash      -         6      USD      food
-cash      -         7      USD      food
-cash      -         15     USD      fuel
-cash      -         10     USD      exchange
-cash      +         500    BRB      exchange
-cash      -         500    BRB      food
