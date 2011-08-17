@@ -48,8 +48,9 @@ done
 : ${prefix:="/usr/local"}
 : ${exec_prefix:="$prefix"}
 : ${bindir:="$exec_prefix/bin"}
-: ${docdir:="$prefix/share"}
-: ${mandir:="$docdir/man"}
+: ${datadir:="$prefix/share"}
+: ${docdir:="$datadir/doc"}
+: ${mandir:="$datadir/man"}
 
 
 cfg prefix ${prefix?}
