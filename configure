@@ -1,0 +1,68 @@
+#!/bin/bash
+## Ka-Ching! pre-install configuration script
+##
+## Usage:
+##   ./configure [ options ]
+##
+## Options:
+##   -p prefix
+##     Install files in +prefix+ (default: /usr/local)
+##   -b bindir
+##     Use +bindir+ to store executable files (default: /usr/local/bin)
+##   -m mandir
+##     Use +mandir+ to store man files (default: /usr/local/share/man)
+##
+
+dbg() { [ ! -z "$DEBUG" ] && echo "$@" 1>&2; }
+
+cfg() {
+  dbg "Setting configuration parameter '$1' to '$2'"
+  CFG="$CFG
+$1=$2"
+}
+
+usg() { echo 1; }
+
+prefix=
+exec_prefix=
+mandir=
+
+while getopts 'p:b:m:h' OPTION
+do
+  case $OPTION in
+    p) prefix="$OPTARG"
+      dbg "Overriding prefix with $prefix"
+    ;;
+    b) bindir="$OPTARG"
+      dbg "Overriding bindir with $bindir"
+    ;;
+    m) mandir="$OPTARG"
+      dbg "Overriding mandir with $mandir"
+    ;;
+    h) grep '^##' < "$0" | cut -c4-
+    exit 0
+    ;;
+  esac
+done
+
+: ${prefix:="/usr/local"}
+: ${exec_prefix:="$prefix"}
+: ${bindir:="$exec_prefix/bin"}
+: ${docdir:="$prefix/share"}
+: ${mandir:="$docdir/man"}
+
+
+cfg prefix ${prefix?}
+cfg exec_prefix ${exec_prefix?}
+cfg bindir ${bindir?}
+cfg mandir ${mandir?}
+cfg docdir ${docdir?}
+
+cat <<EOD > config.mk
+  $CFG
+EOD
+
+cat <<EOD
+Configuration done.
+Now you can run 'make' to build or 'make install' to build and install Ka-Ching!
+EOD
