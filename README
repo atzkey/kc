@@ -1,0 +1,10 @@
+kc+ cash 1000000 USD lottery win
+kc- cash 42 USD dinner
+
+JOURNAL=eurotrip-2012 kc- cash 80 EUR visa
+JOURNAL=eurotrip-2012 kc- card 42 EUR fuel
+
+kc
+kc 2012
+kc 2013-04
+kc eurotrip
