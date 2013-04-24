@@ -1,7 +1,7 @@
 Basic use cases:
 
 kc+ cash 1000000 USD lottery win
-kc- cash 42 USD dinner
+kc- cash 14 USD dinner
 
 JOURNAL=eurotrip-2012 kc- cash 80 EUR visa
 JOURNAL=eurotrip-2012 kc- card 42 EUR fuel
